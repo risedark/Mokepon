@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8"/>
         <title>Mokepon!</title>
+        <script src="./js/mokepon.js" defer></script>
     </head>
     <body>
         <h1>Mokepon 🔥💧🌱</h1>
@@ -10,19 +11,37 @@
         <section id="select-pets">
             <h2>Choose your pet: </h2>
 
-            PETS
+            <input type="radio" name="pet" id="hipodoge"/>
+            <label for="hipodoge"> Hipodoge </label>
+            <input type="radio" name="pet" id="capipepo"/>
+            <label for="capipepo"> Capipepo </label>
+            <input type="radio" name="pet" id="ratigueya"/>
+            <label for="ratigueya"> Ratigueya </label>
+            <input type="radio" name="pet" id="langostelvis"/>
+            <label for="langostelvis"> Langostelvis</label>
+            <input type="radio" name="pet" id="tucapalma"/>
+            <label for="tucapalma"> Tucapalma</label>
+            <input type="radio" name="pet" id="pydos"/>
+            <label for="pydos"> Pydos </label>
+            <!--Hipodoge -> Water
+            Capipepo -> Earth
+            Ratigueya -> Fire
+            Langostelvis -> Water & Fire
+            Tucapalma -> Water & Earth
+            Pydos -> Earth & Fire -->
 
-            <button>Seleccionar</button>
+
+            <button id="buttonPet">Seleccionar</button>
 
         </section>
         <section id="select-attack">
             <h2>Choose your attack: </h2>
-            <p>your pets has <span>3</span> lifes</p>
-            <p>enemy's pets has <span>3</span> lifes</p>
+            <p>Your pet <span id="playersPet"></span> has <span>3</span> lifes</p>
+            <p>Enemy's pet <span id="enemysPet"></span> has <span>3</span> lifes</p>
             <div> 
-                <button>Fuego 🔥</button>
-                <button>Agua💧</button>
-                <button>Earth🌱</button>
+                <button id="button-fire">Fuego 🔥</button>
+                <button id="button-water">Agua💧</button>
+                <button id="button-earth">Earth🌱</button>
             </div>
         </section>
 
@@ -31,10 +50,10 @@
         </section>
 
         <section id="reset">
-            <button>Reset</button>
+            <button id="button-reset">Reset</button>
         </section>
         
             
-        
+            
     </body>
 </html>
