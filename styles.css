@@ -90,23 +90,6 @@ input:checked + label {
   justify-content: center;
   align-items: center;
 }
-.backButton {
-  display: grid;
-  grid-template: 25px / 700px;
-  justify-items: start;
-}
-.backButton #back {
-  border-radius: 50%;
-  background-color: var(--markupColor);
-  border-color: transparent;
-  font-size: large;
-  color: var(--secondaryText);
-  box-sizing: content-box;
-}
-#back:hover {
-  cursor: pointer;
-  color: var(--text);
-}
 .attacks-container {
   display: flex;
 }

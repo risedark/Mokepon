@@ -14,10 +14,6 @@ function startGame() {
     buttonEarth.addEventListener('click', earthAttack)
     const buttonReset = document.getElementById('button-reset')
     buttonReset.addEventListener('click', reset)
-    const buttonBack = document.getElementById('back')
-    buttonBack.addEventListener('click', () => {
-        displayMode('select')
-    })
 
 
 }
