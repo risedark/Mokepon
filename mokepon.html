@@ -1,59 +1,100 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8"/>
-        <title>Mokepon!</title>
-        <script src="./js/mokepon.js" defer></script>
-    </head>
-    <body>
-        <h1>Mokepon 🔥💧🌱</h1>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8" />
+    <title>Mokepon!</title>
+    <script src="./js/mokepon.js" defer></script>
+    <link rel="stylesheet" href="./styles.css" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Emilys+Candy&family=Poppins:wght@300&display=swap");
+    </style>
+  </head>
+  <body>
+    <section id="select-pets">
+      <h1 class="title">Mokepon!</h1>
+      <h2 class="subtitle">Choose your pet:</h2>
 
-        <section id="select-pets">
-            <h2>Choose your pet: </h2>
+      <div class="cards">
+        <input type="radio" name="pet" id="hipodoge" />
+        <label for="hipodoge" class="petCards"
+          ><p>Hipodoge</p>
+          <img src="./assets/hipodoge.webp" alt="hipodoge" />
+        </label>
 
-            <input type="radio" name="pet" id="hipodoge"/>
-            <label for="hipodoge"> Hipodoge </label>
-            <input type="radio" name="pet" id="capipepo"/>
-            <label for="capipepo"> Capipepo </label>
-            <input type="radio" name="pet" id="ratigueya"/>
-            <label for="ratigueya"> Ratigueya </label>
-            <input type="radio" name="pet" id="langostelvis"/>
-            <label for="langostelvis"> Langostelvis</label>
-            <input type="radio" name="pet" id="tucapalma"/>
-            <label for="tucapalma"> Tucapalma</label>
-            <input type="radio" name="pet" id="pydos"/>
-            <label for="pydos"> Pydos </label>
-            <!--Hipodoge -> Water
+        <input type="radio" name="pet" id="capipepo" />
+        <label for="capipepo" class="petCards">
+          <p>Capipepo</p>
+          <img src="./assets/capipepo.webp" alt="capipepo" />
+        </label>
+
+        <input type="radio" name="pet" id="ratigueya" />
+        <label for="ratigueya" class="petCards">
+          <p>Ratigueya</p>
+          <img src="./assets/ratigueya.webp" alt="ratigueya" />
+        </label>
+
+        <input type="radio" name="pet" id="langostelvis" />
+        <label for="langostelvis" class="petCards">
+          <p>Langostelvis</p>
+          <img src="./assets/langostelvis.webp" alt="langostelvis" />
+        </label>
+
+        <input type="radio" name="pet" id="tucapalma" />
+        <label for="tucapalma" class="petCards">
+          <p>Tucapalma</p>
+          <img src="./assets/tucapalma.webp" alt="tucapalma" />
+        </label>
+
+        <input type="radio" name="pet" id="pydos" />
+        <label for="pydos" class="petCards">
+          <p>Pydos</p>
+          <img src="./assets/pydos.webp" alt="pydos" />
+        </label>
+      </div>
+
+      <!--Hipodoge -> Water
             Capipepo -> Earth
             Ratigueya -> Fire
             Langostelvis -> Water & Fire
             Tucapalma -> Water & Earth
             Pydos -> Earth & Fire -->
 
+      <button id="buttonPet">Seleccionar</button>
+    </section>
+    <section id="select-attack">
+      <div class="backButton"><button id="back">&#8249</button></div>
 
-            <button id="buttonPet">Seleccionar</button>
+      <h1 class="title">Mokepon!</h1>
+      <h2 class="subtitle">Choose your attack:</h2>
+      <div class="attacks-container">
+        <button id="button-fire" class="attackButton fire">Fuego 🔥</button>
+        <button id="button-water" class="attackButton water">Water💧</button>
+        <button id="button-earth" class="attackButton earth">Earth🌱</button>
+      </div>
 
-        </section>
-        <section id="select-attack">
-            <h2>Choose your attack: </h2>
-            <p>Your pet <span id="playersPet"></span> has <span id="playersLifes">3</span> lifes</p>
-            <p>Enemy's pet <span id="enemysPet"></span> has <span id="enemysLifes">3</span> lifes</p>
-            <div> 
-                <button id="button-fire" class="attackButton">Fuego 🔥</button>
-                <button id="button-water" class="attackButton">Agua💧</button>
-                <button id="button-earth" class="attackButton">Earth🌱</button>
-            </div>
-        </section>
-
-        <section id="messages">
-            
-        </section>
-
+      <div id="messages">
+        <p id="resultDiv">Good Luck!</p>
         <section id="reset">
-            <button id="button-reset">Reset</button>
+          <button id="button-reset">Reset</button>
         </section>
-        
-            
-            
-    </body>
+      </div>
+
+      <div class="attacks">
+        <div class="player-attacks">
+          <p>You:</p>
+          <p id="playersLifes">3</p>
+          <p id="playersPet" class="petImages"></p>
+          <div id="playerAttacksDiv" class="attack-history"></div>
+        </div>
+        <div class="versus">Vs</div>
+        <div class="enemy-attacks">
+          <p>Enemy:</p>
+          <p id="enemysLifes">3</p>
+          <p id="enemysPet" class="petImages"></p>
+          <div id="enemyAttacksDiv" class="attack-history"></div>
+        </div>
+      </div>
+    </section>
+  </body>
 </html>

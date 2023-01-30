@@ -1,0 +1,235 @@
+html {
+  font-size: 10px;
+  --background: #222831;
+  --title: #00adb5;
+  --text: #eeeeee;
+  --markupColor: #393e46;
+  --secondaryText: black;
+  --fontSimpleText: "Bubblegum Sans", cursive;
+}
+body {
+  background-color: var(--background);
+}
+#select-pets {
+  display: flex;
+  height: 100vh;
+  box-sizing: border-box;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--fontSimpleText);
+}
+.title {
+  color: var(--title);
+  font-family: "Emilys Candy", cursive;
+  font-size: 6rem;
+  margin-block-start: 0.4rem;
+  margin-block-end: 0.4rem;
+}
+.subtitle {
+  font-size: 3rem;
+  color: var(--title);
+  font-family: var(--fontSimpleText);
+}
+
+.cards {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 1.5rem;
+  align-content: center;
+  justify-content: center;
+}
+.petCards {
+  height: 14rem;
+  width: 12rem;
+  padding: 1rem;
+  padding-top: 0.1rem;
+  padding-bottom: 0.1rem;
+  box-sizing: border-box;
+  border: 0.2rem gray;
+  border-style: inset;
+  background-color: var(--markupColor);
+  border-radius: 2rem;
+  color: var(--text);
+  font-size: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.petCards:hover {
+  cursor: pointer;
+}
+.petCards img {
+  height: 7.5rem;
+}
+input {
+  display: none;
+}
+input:checked + label {
+  background-color: var(--background);
+  color: var(--title);
+  box-shadow: 1px1px10px var(--markupColor);
+}
+
+#buttonPet {
+  width: 12rem;
+  height: 3rem;
+  border-radius: 1rem;
+  border: gray inset 0.2rem;
+  background-color: var(--text);
+  margin: 2rem;
+  color: var(--secondaryText);
+  font-family: "Poppins", sans-serif;
+}
+#buttonPet:hover {
+  cursor: pointer;
+}
+#select-attack {
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+}
+.backButton {
+  display: grid;
+  grid-template: 25px / 700px;
+  justify-items: start;
+}
+.backButton #back {
+  border-radius: 50%;
+  background-color: var(--markupColor);
+  border-color: transparent;
+  font-size: large;
+  color: var(--secondaryText);
+  box-sizing: content-box;
+}
+#back:hover {
+  cursor: pointer;
+  color: var(--text);
+}
+.attacks-container {
+  display: flex;
+}
+.attackButton {
+  background-color: var(--text);
+  box-shadow: inset 0 0 0 0 var(--markupColor);
+  transition: color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  border-radius: 1rem;
+  color: var(--secondaryText);
+  padding: 1rem;
+  box-sizing: border-box;
+  border-color: gray;
+  width: 16rem;
+  font-family: var(--fontSimpleText);
+  margin: 1rem;
+}
+.attackButton.fire:hover,
+.attackButton.fire:focus {
+  box-shadow: inset 200px 0 0 0 red;
+}
+.attackButton.water:hover,
+.attackButton.water:focus {
+  box-shadow: inset 200px 0 0 0 aqua;
+  color: var(--secondaryText);
+}
+.attackButton.earth:hover,
+.attackButton.earth:focus {
+  box-shadow: inset 200px 0 0 0 green;
+}
+.attackButton:hover,
+.attackButton:focus {
+  cursor: pointer;
+  color: var(--text);
+}
+.attackButton:disabled {
+  background-color: #cccccc;
+  color: #666666 !important;
+  box-shadow: transparent 200px 0 0 0 !important;
+  transition: none;
+  cursor: initial;
+}
+.petImages img {
+  height: 7.5rem;
+}
+#messages {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 28rem;
+  padding: 1rem;
+  background-color: var(--markupColor);
+  border-radius: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-family: var(--fontSimpleText);
+  font-size: 1.8rem;
+  color: var(--text);
+}
+#button-reset {
+  border: none;
+  background-color: transparent;
+  font-family: "Poppins", sans-serif;
+  color: var(--title);
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+#button-reset:hover {
+  cursor: pointer;
+  color: var(--text);
+}
+.attacks {
+  display: grid;
+  grid-template-columns: 100px 50px 100px;
+  align-items: center;
+  justify-items: center;
+}
+.versus {
+  grid-area: 2/3/1/2;
+  font-size: xx-large;
+  color: var(--text);
+}
+.player-attacks,
+.enemy-attacks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--markupColor);
+  border-radius: 2rem;
+  padding: 0.5rem;
+  box-sizing: content-box;
+  font-size: large;
+  color: var(--text);
+  font-family: var(--fontSimpleText);
+}
+#playersPet,
+#enemysPet {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+}
+/* #playersLifes,
+#enemysLifes {
+  font-size: xx-large;
+  color: var(--text);
+  font-family: var(--fontSimpleText);
+}
+.attack-history {
+  font-size: x-large;
+  color: var(--text);
+  font-family: var(--fontSimpleText);
+} */
+@media (max-width: 420px) {
+  #select-pets {
+    height: fit-content;
+  }
+  .cards {
+    flex-direction: column;
+  }
+}
+@media (max-width: 550px) {
+  .attacks-container {
+    flex-direction: column;
+  }
+}
