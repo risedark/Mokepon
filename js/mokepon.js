@@ -3,9 +3,6 @@ const sectionSelectPet = document.getElementById('select-pets');
 const sectionReset = document.getElementById('reset');
 const ButtonPetPlayer = document.getElementById('buttonPet');
 const buttonReset = document.getElementById('button-reset');
-
-
-
 const spanPlayersPet = document.getElementById('playersPet');
 const spanEnemysPet = document.getElementById('enemysPet');
 
@@ -14,9 +11,10 @@ let petPlayer = "";
 let enemyPet = '';
 let playerLifesCount = 3;
 let enemyLifesCount = 3;
-let playerAttack = "";
-let enemyAttack;
+let playerAttack = [];
+let enemyAttack = [];
 let mokeponOption
+let attackMokeponEnemy
 const cardsContainer = document.getElementById('cardsContainer')
 const attacksContainer = document.getElementById('attacksContainer')
 
@@ -129,10 +127,12 @@ function startGame() {
 function selectPetEnemy() {
   let randomPet = random(0, mokepones.length - 1);
   enemyPet = mokepones[randomPet].name
+  attackMokeponEnemy = mokepones[randomPet].attacks
   spanEnemysPet.textContent = enemyPet;
   spanEnemysPet.appendChild(
     getPetImageFromName(enemyPet)
   );
+
 }
 function random(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min)
@@ -155,28 +155,41 @@ function SelectPetPlayer() {
 }
 
 function fireAttack() {
-  playerAttack = "Fire";
-  randomAttack();
+  playerAttack.push('Fire');
+
+  console.log(playerAttack);
+
+  randomAttack(playerAttack.length);
 }
 function waterAttack() {
-  playerAttack = "Water";
-  randomAttack();
+  playerAttack.push('Water');
+  console.log(playerAttack);
+  randomAttack(playerAttack.length);
 }
 function earthAttack() {
-  playerAttack = "Earth";
-  randomAttack();
+  playerAttack.push('Earth');
+  console.log(playerAttack);
+  randomAttack(playerAttack.length);
 }
 
-function randomAttack() {
-  enemyAttack = random(1, 3);
-  if (enemyAttack == 1) {
-    enemyAttack = 'Fire';
-  } else if (enemyAttack == 2) {
-    enemyAttack = 'Water';
+function randomAttack(arraylength) {
+  // if (arraylength == 5) {
+  randomEnemyAttack = random(0, attackMokeponEnemy.length - 1);
+  if (randomEnemyAttack == 1) {
+    enemyAttack.push('Fire');
+  } else if (randomEnemyAttack == 2) {
+    enemyAttack.push('Water');
   } else {
-    enemyAttack = 'Earth';
+    enemyAttack.push('Earth');
   }
+  console.log(enemyAttack)
   fight();
+
+  // } else {
+  // return;
+
+  // }
+
 }
 
 function fight() {
@@ -302,7 +315,7 @@ function showAttacks(attacksArray) {
     button.className = `attackButton ${attack.type}`
     button.innerText = attack.name
     button.addEventListener('click', () => attackAction(attack.type))
-    button.addEventListener('click', (e) => console.log(e))
+    button.addEventListener('click', () => disableButton(button))
     attacksContainer.appendChild(button)
   })
 
@@ -318,5 +331,9 @@ function attackAction(type) {
   } else
     console.error('attack type not defined')
   return;
+}
+
+function disableButton(button) {
+  button.disabled = true
 }
 window.addEventListener('DOMContentLoaded', startGame)
