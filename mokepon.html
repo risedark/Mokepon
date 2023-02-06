@@ -4,7 +4,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="UTF-8" />
     <title>Mokepon!</title>
-    <script src="./js/mokepon.js" defer></script>
     <link rel="stylesheet" href="./styles.css" />
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Emilys+Candy&family=Poppins:wght@300&display=swap");
@@ -15,43 +14,7 @@
       <h1 class="title">Mokepon!</h1>
       <h2 class="subtitle">Choose your pet:</h2>
 
-      <div class="cards">
-        <input type="radio" name="pet" id="hipodoge" />
-        <label for="hipodoge" class="petCards"
-          ><p>Hipodoge</p>
-          <img src="./assets/hipodoge.webp" alt="hipodoge" />
-        </label>
-
-        <input type="radio" name="pet" id="capipepo" />
-        <label for="capipepo" class="petCards">
-          <p>Capipepo</p>
-          <img src="./assets/capipepo.webp" alt="capipepo" />
-        </label>
-
-        <input type="radio" name="pet" id="ratigueya" />
-        <label for="ratigueya" class="petCards">
-          <p>Ratigueya</p>
-          <img src="./assets/ratigueya.webp" alt="ratigueya" />
-        </label>
-
-        <input type="radio" name="pet" id="langostelvis" />
-        <label for="langostelvis" class="petCards">
-          <p>Langostelvis</p>
-          <img src="./assets/langostelvis.webp" alt="langostelvis" />
-        </label>
-
-        <input type="radio" name="pet" id="tucapalma" />
-        <label for="tucapalma" class="petCards">
-          <p>Tucapalma</p>
-          <img src="./assets/tucapalma.webp" alt="tucapalma" />
-        </label>
-
-        <input type="radio" name="pet" id="pydos" />
-        <label for="pydos" class="petCards">
-          <p>Pydos</p>
-          <img src="./assets/pydos.webp" alt="pydos" />
-        </label>
-      </div>
+      <div id="cardsContainer" class="cards"></div>
 
       <!--Hipodoge -> Water
             Capipepo -> Earth
@@ -65,10 +28,10 @@
     <section id="select-attack">
       <h1 class="title">Mokepon!</h1>
       <h2 class="subtitle">Choose your attack:</h2>
-      <div class="attacks-container">
-        <button id="button-fire" class="attackButton fire">Fuego 🔥</button>
+      <div id="attacksContainer" class="attacks-container">
+        <!-- <button id="button-fire" class="attackButton fire">Fuego 🔥</button>
         <button id="button-water" class="attackButton water">Water💧</button>
-        <button id="button-earth" class="attackButton earth">Earth🌱</button>
+        <button id="button-earth" class="attackButton earth">Earth🌱</button> -->
       </div>
 
       <div id="messages">
@@ -94,5 +57,6 @@
         </div>
       </div>
     </section>
+    <script src="./js/mokepon.js" defer></script>
   </body>
 </html>
