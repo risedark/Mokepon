@@ -9,12 +9,16 @@ const spanEnemysPet = document.getElementById('enemysPet');
 let mokepones = []
 let petPlayer = "";
 let enemyPet = '';
+let playerWins = 0
+let enemyWins = 0
 let playerLifesCount = 3;
 let enemyLifesCount = 3;
 let playerAttack = [];
 let enemyAttack = [];
 let mokeponOption
-let attackMokeponEnemy
+let attackMokeponEnemy = []
+let indexAttackPlayer
+let indexAttackEnemy
 const cardsContainer = document.getElementById('cardsContainer')
 const attacksContainer = document.getElementById('attacksContainer')
 
@@ -26,10 +30,11 @@ const playerAttacksDiv = document.getElementById('playerAttacksDiv');
 const enemyAttacksDiv = document.getElementById('enemyAttacksDiv');
 
 class Mokepon {
-  constructor(name, img, life) {
+  constructor(name, img, life, type) {
     this.name = name;
     this.img = img;
     this.life = life;
+    this.type = type
     this.attacks = []
   }
 
@@ -46,18 +51,19 @@ class Mokepon {
     </label>
     `
   }
+
 }
-let hipodoge = new Mokepon('Hipodoge', '/assets/hipodoge.webp', 5);
+let hipodoge = new Mokepon('Hipodoge', '/assets/hipodoge.webp', 5, 'Water');
 
-let capipepo = new Mokepon('Capipepo', '/assets/capipepo.webp', 5);
+let capipepo = new Mokepon('Capipepo', '/assets/capipepo.webp', 5, 'Earth');
 
-let ratigueya = new Mokepon('Ratigueya', '/assets/ratigueya.webp', 5);
+let ratigueya = new Mokepon('Ratigueya', '/assets/ratigueya.webp', 5, 'Fire');
 
-let langostelvis = new Mokepon('Langostelvis', '/assets/langostelvis.webp', 5);
+let langostelvis = new Mokepon('Langostelvis', '/assets/langostelvis.webp', 5, 'Fire');
 
-let tucapalma = new Mokepon('Tucapalma', '/assets/tucapalma.webp', 5);
+let tucapalma = new Mokepon('Tucapalma', '/assets/tucapalma.webp', 5, 'Earth');
 
-let pydos = new Mokepon('Pydos', '/assets/pydos.webp', 5);
+let pydos = new Mokepon('Pydos', '/assets/pydos.webp', 5, 'Water');
 
 hipodoge.attacks.push(
   { name: '💧', id: `button-water-${random(0, 1000)}`, type: 'water' },
@@ -145,87 +151,112 @@ function SelectPetPlayer() {
     alert("You haven't selected any pet");
     return;
   }
-  extractAttacks(petPlayer, mokepones)
+
   spanPlayersPet.textContent = petPlayer;
   spanPlayersPet.appendChild(
     getPetImageFromName(petPlayer)
   );
   selectPetEnemy();
+  typeAdvantage(petPlayer, enemyPet, mokepones)
+  extractAttacks(petPlayer, mokepones)
   displayMode('attack');
 }
 
 function fireAttack() {
   playerAttack.push('Fire');
-
-  console.log(playerAttack);
-
-  randomAttack(playerAttack.length);
+  randomAttack();
 }
 function waterAttack() {
   playerAttack.push('Water');
-  console.log(playerAttack);
-  randomAttack(playerAttack.length);
+  randomAttack();
 }
 function earthAttack() {
   playerAttack.push('Earth');
-  console.log(playerAttack);
-  randomAttack(playerAttack.length);
+  randomAttack();
 }
 
-function randomAttack(arraylength) {
-  // if (arraylength == 5) {
+function randomAttack() {
+
   randomEnemyAttack = random(0, attackMokeponEnemy.length - 1);
-  if (randomEnemyAttack == 1) {
+  if (attackMokeponEnemy[randomEnemyAttack].name == '🔥') {
     enemyAttack.push('Fire');
-  } else if (randomEnemyAttack == 2) {
+  } else if (attackMokeponEnemy[randomEnemyAttack].name == '💧') {
     enemyAttack.push('Water');
-  } else {
+  } else if (attackMokeponEnemy[randomEnemyAttack].name == '🌱') {
     enemyAttack.push('Earth');
   }
-  console.log(enemyAttack)
-  fight();
 
-  // } else {
-  // return;
+  attackMokeponEnemy.splice(randomEnemyAttack, 1)
 
-  // }
+  startFight(playerAttack.length);
+}
+function indexBothOpponets(player, enemy) {
+  indexAttackPlayer = playerAttack[player]
+  indexAttackEnemy = enemyAttack[enemy]
+}
+
+function startFight(arraylength) {
+  if (arraylength === 5) {
+    fight();
+  }
 
 }
 
 function fight() {
-  if (playerAttack == enemyAttack) {
-    message("Tie");
-    // TODO: move this into a separated function
-  } else if (playerAttack == "Fire" && enemyAttack == "Earth" || playerAttack == "Water" && enemyAttack == "Fire" || playerAttack == "Earth" && enemyAttack == "Water") {
-    message("You Win 🎉");
-    enemyLifesCount--;
-    spanEnemyLifes.textContent = enemyLifesCount;
+
+  for (let index = 0; index < playerAttack.length; index++) {
+    if (playerAttack[index] === enemyAttack[index]) {
+      indexBothOpponets(index, index)
+      message("Tie", "🟡", "🟡")
+
+    } else if (checkIfWon(playerAttack[index], enemyAttack[index]) == true) {
+      indexBothOpponets(index, index);
+      message("You Win 🎉", "✅", "❌");
+      playerWins++;
+      spanPlayerLifes.textContent = playerWins;
+    } else {
+      indexBothOpponets(index, index);
+      message("You Lose 😢", "❌", "✅");
+      enemyWins++;
+      spanEnemyLifes.textContent = enemyWins;
+
+    }
+  }
+
+  checkWinner();
+
+}
+function checkIfWon(player, enemy) {
+  if (player == "Fire" && enemy == "Earth") {
+    return true;
+  } else if (player == "Water" && enemy == "Fire") {
+    return true;
+  } else if (player == "Earth" && enemy == "Water") {
+    return true;
   } else {
-    message("You Lose 😢");
-    playerLifesCount--;
-    spanPlayerLifes.textContent = playerLifesCount;
+    return false;
   }
-  checkLifes();
-
 }
-
-function checkLifes() {
-  if (playerLifesCount == 0) {
-    finalMessage("Sorry, you lost, try again😖");
-  } else if (enemyLifesCount == 0) {
+function checkWinner() {
+  if (playerWins === enemyWins) {
+    finalMessage("Tie");
+  } else if (playerWins > enemyWins) {
     finalMessage("CONGRATULATIONS 🎉🎊, you've Won the Combat");
+  } else if (playerWins < enemyWins) {
+    finalMessage("Sorry, you lost, try again😖");
   }
+
 }
 
-function message(result) {
+function message(result, playerResult, enemyResult) {
 
 
   const newPlayerAttack = document.createElement('p');
   const newEnemyAttack = document.createElement('p');
 
   messagesSection.textContent = result;
-  newPlayerAttack.textContent = playerAttack;
-  newEnemyAttack.textContent = enemyAttack;
+  newPlayerAttack.textContent = `${indexAttackPlayer} ${playerResult}`;
+  newEnemyAttack.textContent = `${indexAttackEnemy} ${enemyResult}`;
 
   playerAttacksDiv.appendChild(newPlayerAttack);
   enemyAttacksDiv.appendChild(newEnemyAttack);
@@ -336,4 +367,41 @@ function attackAction(type) {
 function disableButton(button) {
   button.disabled = true
 }
-window.addEventListener('DOMContentLoaded', startGame)
+function typeAdvantage(player, enemy, array) {
+  let playerType
+  let indexPlayer
+  let enemyType
+  for (let i = 0; i < array.length; i++) {
+    if (player === array[i].name) {
+      playerType = array[i].type
+      indexPlayer = i
+    }
+    for (let index = 0; index < array.length; index++) {
+      if (enemy === array[index].name) {
+        enemyType = array[index].type
+      }
+
+    }
+  }
+
+  if (playerType == 'Water' && enemyType == 'Fire') {
+    advantageMessage('Water')
+    return array[indexPlayer].attacks.push({ name: '💧', id: `button-water-${random(0, 1000)}`, type: 'water' });
+  } else if (playerType == 'Earth' && enemyType == 'Water') {
+    advantageMessage('Earth')
+    return array[indexPlayer].attacks.push({ name: '🌱', id: `button-earth-${random(0, 1000)}`, type: 'earth' });
+  } else if (playerType == 'Fire' && enemyType == 'Earth') {
+    advantageMessage('Fire')
+    return array[indexPlayer].attacks.push({ name: '🔥', id: `button-fire-${random(0, 1000)}`, type: 'fire' });
+  } else {
+    return;
+  }
+
+}
+function advantageMessage(type) {
+  const advantage = document.createElement('p')
+  advantage.textContent = `You've got the advantage +1 ${type} attack`
+  const messageAdvantage = document.getElementById('messages')
+  messageAdvantage.appendChild(advantage)
+}
+window.addEventListener('DOMContentLoaded', startGame);

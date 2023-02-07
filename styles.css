@@ -97,12 +97,12 @@ input:checked + label {
   background-color: var(--text);
   box-shadow: inset 0 0 0 0 var(--markupColor);
   transition: color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-  border-radius: 1rem;
+  border-radius: 2rem;
   color: var(--secondaryText);
   padding: 1rem;
   box-sizing: border-box;
   border-color: gray;
-  width: 16rem;
+  width: 8rem;
   font-family: var(--fontSimpleText);
   margin: 1rem;
 }
