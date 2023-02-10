@@ -193,17 +193,14 @@ input:checked + label {
   gap: 2rem;
   align-items: center;
 }
-/* #playersLifes,
-#enemysLifes {
-  font-size: xx-large;
-  color: var(--text);
-  font-family: var(--fontSimpleText);
+#show-map {
+  flex-flow: column wrap;
+  align-items: center;
+  justify-content: center;
 }
-.attack-history {
-  font-size: x-large;
-  color: var(--text);
-  font-family: var(--fontSimpleText);
-} */
+#map {
+  border: black 1rem solid;
+}
 @media (max-width: 420px) {
   #select-pets {
     height: fit-content;
