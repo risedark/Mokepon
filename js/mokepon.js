@@ -30,15 +30,16 @@ map.width = 640;
 map.height = 360;
 mapBackground.src = '/assets/mokemap.webp'
 let mapSpot = []
+let mapSpotUsed = []
 mapSpot.push(
-  { x: 208, y: 8 },
-  { x: 584, y: 268 },
-  { x: 589, y: 18 },
-  { x: 419, y: 13 },
-  { x: 230, y: 266 },
-  { x: 8, y: 284 },
-  { x: 141, y: 169 },
-  { x: 400, y: 216 },
+  { x: 208, y: 8, id: `gardenR${random(0, 500)}` },
+  { x: 584, y: 268, id: `fenceR${random(0, 500)}` },
+  { x: 589, y: 18, id: `buildingR${random(0, 500)}` },
+  { x: 425, y: 13, id: `roofC${random(0, 500)}` },
+  { x: 230, y: 266, id: `lakeR${random(0, 500)}` },
+  { x: 8, y: 284, id: `lakeL${random(0, 500)}` },
+  { x: 141, y: 169, id: `lakeU${random(0, 500)}` },
+  { x: 400, y: 216, id: `center${random(0, 500)}` },
 )
 const cardsContainer = document.getElementById('cardsContainer');
 const attacksContainer = document.getElementById('attacksContainer');
@@ -51,20 +52,21 @@ const playerAttacksDiv = document.getElementById('playerAttacksDiv');
 const enemyAttacksDiv = document.getElementById('enemyAttacksDiv');
 
 class Mokepon {
-  constructor(name, img, life, type, onlyHeadImg, x = 10, y = 10,) {
+  constructor(name, img, life, type, onlyHeadImg, x = 10, y = 10, idSpot) {
     this.name = name;
     this.img = img;
     this.life = life;
     this.type = type;
     this.attacks = [];
-    this.x = mapSpot[random(0, mapSpot.length - 1)].x
-    this.y = mapSpot[random(0, mapSpot.length - 1)].y
+    this.x = x
+    this.y = y
     this.width = 50
     this.height = 50
     this.imgMap = new Image()
     this.imgMap.src = onlyHeadImg
     this.speedX = 0
     this.speedY = 0
+    this.idSpot = idSpot
   }
   drawMokepon() {
     canvas.drawImage(this.imgMap,
@@ -73,6 +75,7 @@ class Mokepon {
       this.width,
       this.height)
   }
+
   get radioElement() {
     return document.getElementById(this.name);
   }
@@ -165,10 +168,10 @@ function startGame() {
 
 
 
-function selectPetEnemy() {
-  let randomPet = random(0, mokepones.length - 1);
-  enemyPet = mokepones[randomPet].name
-  attackMokeponEnemy = mokepones[randomPet].attacks
+function selectPetEnemy(Mokepon) {
+  // let randomPet = random(0, mokepones.length - 1);
+  enemyPet = Mokepon.name
+  attackMokeponEnemy = Mokepon.attacks
   spanEnemysPet.textContent = enemyPet;
   spanEnemysPet.appendChild(
     getPetImageFromName(enemyPet)
@@ -191,9 +194,6 @@ function SelectPetPlayer() {
   spanPlayersPet.appendChild(
     getPetImageFromName(petPlayer)
   );
-  selectPetEnemy();
-  typeAdvantage(petPlayer, enemyPet, mokepones)
-  extractAttacks(petPlayer, mokepones)
   displayMode('map');
   startMap();
 }
@@ -446,7 +446,7 @@ function drawCanvas() {
   if (!blockMovement) {
     petPlayerObject.x += petPlayerObject.speedX
     petPlayerObject.y += petPlayerObject.speedY
-    console.log({ x: petPlayerObject.x }, { y: petPlayerObject.y })
+    // console.log({ x: petPlayerObject.x }, { y: petPlayerObject.y })
   }
 
   canvas.clearRect(0, 0, map.width, map.height)
@@ -455,6 +455,7 @@ function drawCanvas() {
     0,
     map.width,
     map.height,)
+
   petPlayerObject.drawMokepon();
   mokepones.forEach((Mokepon) => {
 
@@ -466,9 +467,14 @@ function drawCanvas() {
 
     const isColliding = checkCollision(Mokepon)
 
+
     if (isColliding && !blockMovement) {
       stopMovement(true)
+      startFightMode(Mokepon)
+      displayMode('attack')
+      return;
     }
+
   })
 
 }
@@ -523,7 +529,7 @@ function pressKey(event) {
 
 }
 function startMap() {
-
+  selectSpot()
   interval = setInterval(drawCanvas, 50);
   petPlayerObject = obtainPet(petPlayer)
   window.addEventListener('keydown', pressKey);
@@ -569,5 +575,30 @@ function checkCollision(userA, userB = petPlayerObject) {
   const posY = topSide || bottomSide;
 
   return posX && posY;
+}
+
+function selectSpot() {
+  for (let i = 0; i < mokepones.length; i++) {
+    const mokepon = mokepones[i];
+    while (!mokepon.idSpot) {
+      let numberR = random(0, mapSpot.length - 1)
+      if (!mapSpotUsed.includes(mapSpot[numberR])) {
+
+        console.log(numberR)
+        mokepon.idSpot = mapSpot[numberR].id
+        mokepon.x = mapSpot[numberR].x
+        mokepon.y = mapSpot[numberR].y
+        mapSpotUsed.push(mapSpot[numberR])
+      }
+    }
+  }
+}
+function startFightMode(Mokepon) {
+  selectPetEnemy(Mokepon);
+  typeAdvantage(petPlayer, enemyPet, mokepones)
+  extractAttacks(petPlayer, mokepones)
+  clearInterval(interval)
+
+
 }
 window.addEventListener('DOMContentLoaded', startGame);
