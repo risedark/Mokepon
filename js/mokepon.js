@@ -26,20 +26,27 @@ let attackMokeponEnemy = []
 let indexAttackPlayer
 let indexAttackEnemy
 let mapBackground = new Image();
-map.width = 640;
-map.height = 360;
+let heightResponsive
+let mapWidth = window.innerWidth - 20
+const maxWidth = 660
+if (mapWidth > maxWidth) {
+  mapWidth = maxWidth - 20
+}
+heightResponsive = mapWidth * 600 / 800
+map.width = mapWidth;
+map.height = heightResponsive;
 mapBackground.src = '/assets/mokemap.webp'
 let mapSpot = []
 let mapSpotUsed = []
 mapSpot.push(
-  { x: 208, y: 8, id: `gardenR${random(0, 500)}` },
-  { x: 584, y: 268, id: `fenceR${random(0, 500)}` },
-  { x: 589, y: 18, id: `buildingR${random(0, 500)}` },
-  { x: 425, y: 13, id: `roofC${random(0, 500)}` },
-  { x: 230, y: 266, id: `lakeR${random(0, 500)}` },
-  { x: 8, y: 284, id: `lakeL${random(0, 500)}` },
-  { x: 141, y: 169, id: `lakeU${random(0, 500)}` },
-  { x: 400, y: 216, id: `center${random(0, 500)}` },
+  { x: mapWidth * 0.325, y: heightResponsive * 0.016, id: `gardenR${random(0, 500)}` },
+  { x: mapWidth * 584 / 640, y: heightResponsive * 268 / 480, id: `fenceR${random(0, 500)}` },
+  { x: mapWidth * 589 / 640, y: heightResponsive * 18 / 480, id: `buildingR${random(0, 500)}` },
+  { x: mapWidth * 425 / 640, y: heightResponsive * 13 / 480, id: `roofC${random(0, 500)}` },
+  { x: mapWidth * 230 / 640, y: heightResponsive * 266 / 480, id: `lakeR${random(0, 500)}` },
+  { x: mapWidth * 8 / 640, y: heightResponsive * 284 / 480, id: `lakeL${random(0, 500)}` },
+  { x: mapWidth * 141 / 640, y: heightResponsive * 169 / 480, id: `lakeU${random(0, 500)}` },
+  { x: mapWidth * 400 / 640, y: heightResponsive * 216 / 480, id: `center${random(0, 500)}` },
 )
 const cardsContainer = document.getElementById('cardsContainer');
 const attacksContainer = document.getElementById('attacksContainer');
@@ -60,8 +67,8 @@ class Mokepon {
     this.attacks = [];
     this.x = x
     this.y = y
-    this.width = 50
-    this.height = 50
+    this.width = mapWidth * 0.07
+    this.height = heightResponsive * 0.10
     this.imgMap = new Image()
     this.imgMap.src = onlyHeadImg
     this.speedX = 0
@@ -479,16 +486,16 @@ function drawCanvas() {
 
 }
 function moveUp() {
-  petPlayerObject.speedY = -5
+  petPlayerObject.speedY = heightResponsive * -5 / 480
 }
 function moveDown() {
-  petPlayerObject.speedY = 5
+  petPlayerObject.speedY = heightResponsive * 5 / 480
 }
 function moveRight() {
-  petPlayerObject.speedX = 5
+  petPlayerObject.speedX = mapWidth * 5 / 640
 }
 function moveLeft() {
-  petPlayerObject.speedX = -5
+  petPlayerObject.speedX = mapWidth * -5 / 640
 }
 function stopMovement(block = false) {
   petPlayerObject.speedX = 0

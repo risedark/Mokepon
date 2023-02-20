@@ -201,6 +201,16 @@ input:checked + label {
 #map {
   border: black 1rem solid;
 }
+#show-map button {
+  width: 8rem;
+  height: 3rem;
+  border-radius: 1rem;
+  border: gray inset 0.2rem;
+  background-color: var(--text);
+  margin: 1rem 0;
+  color: var(--secondaryText);
+  font-family: "Poppins", sans-serif;
+}
 @media (max-width: 420px) {
   #select-pets {
     height: fit-content;
@@ -211,6 +221,13 @@ input:checked + label {
 }
 @media (max-width: 550px) {
   .attacks-container {
+    flex-direction: column;
+  }
+}
+@media (max-width: 300px) {
+  #show-map div {
+    display: flex;
+    align-items: center;
     flex-direction: column;
   }
 }
